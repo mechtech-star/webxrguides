@@ -1,0 +1,8 @@
+{
+  "id": "demo-guide",
+  "name": "Demo Guide",
+  "description": "Placeholder guide structure",
+  "version": "0.1.0",
+  "model": "assets/models/demo.glb",
+  "steps": []
+}
