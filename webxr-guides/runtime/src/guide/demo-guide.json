@@ -1,0 +1,57 @@
+{
+  "guideId": "demo-assembly-001",
+  "title": "Assembly Procedure",
+  "description": "Step-by-step assembly guide for industrial equipment",
+  "steps": [
+    {
+      "id": "step-01",
+      "title": "Prepare Workspace",
+      "description": "Clear and organize the work surface. Ensure all tools are within reach.",
+      "target": "workbench",
+      "actions": [],
+      "completion": {
+        "type": "manual"
+      }
+    },
+    {
+      "id": "step-02",
+      "title": "Install Base Frame",
+      "description": "Position the base frame on the work surface. Secure with fasteners.",
+      "target": "base_frame",
+      "actions": [],
+      "completion": {
+        "type": "manual"
+      }
+    },
+    {
+      "id": "step-03",
+      "title": "Attach Support Brackets",
+      "description": "Align and attach all four support brackets to the base frame.",
+      "target": "support_brackets",
+      "actions": [],
+      "completion": {
+        "type": "manual"
+      }
+    },
+    {
+      "id": "step-04",
+      "title": "Mount Primary Assembly",
+      "description": "Lift the primary assembly and mount it on the support brackets.",
+      "target": "primary_assembly",
+      "actions": [],
+      "completion": {
+        "type": "manual"
+      }
+    },
+    {
+      "id": "step-05",
+      "title": "Final Inspection",
+      "description": "Verify all connections are secure and the assembly is level.",
+      "target": "assembly_complete",
+      "actions": [],
+      "completion": {
+        "type": "manual"
+      }
+    }
+  ]
+}

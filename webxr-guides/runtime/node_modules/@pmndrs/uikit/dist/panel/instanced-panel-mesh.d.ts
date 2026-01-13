@@ -1,0 +1,21 @@
+import { Box3, InstancedBufferAttribute, Mesh, Sphere } from 'three';
+import { RootContext } from '../context.js';
+export declare class InstancedPanelMesh extends Mesh {
+    private readonly root;
+    readonly instanceMatrix: InstancedBufferAttribute;
+    count: number;
+    protected readonly isInstancedMesh = true;
+    readonly instanceColor: null;
+    readonly morphTexture: null;
+    readonly boundingBox: Box3;
+    readonly boundingSphere: Sphere;
+    private readonly customUpdateMatrixWorld;
+    constructor(root: Omit<RootContext, 'glyphGroupManager' | 'panelGroupManager'>, instanceMatrix: InstancedBufferAttribute, instanceData: InstancedBufferAttribute, instanceClipping: InstancedBufferAttribute);
+    dispose(): void;
+    copy(): this;
+    computeBoundingBox(): void;
+    computeBoundingSphere(): void;
+    updateMorphTargets(): void;
+    raycast(): void;
+    spherecast(): void;
+}

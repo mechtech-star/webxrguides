@@ -1,0 +1,34 @@
+import { Vector2Tuple } from 'three';
+import { FlexDirection, MeasureFunction, Node } from 'yoga-layout/load';
+import { setter } from './setter.js';
+import { Component } from '../components/component.js';
+export type YogaProperties = {
+    [Key in keyof typeof setter]?: Parameters<(typeof setter)[Key]>[2];
+};
+export type Inset = [top: number, right: number, bottom: number, left: number];
+export type CustomLayouting = {
+    minWidth: number;
+    minHeight: number;
+    measure: MeasureFunction;
+};
+export declare class FlexNode {
+    private component;
+    private children;
+    private yogaNode;
+    private layoutChangeListeners;
+    private customLayouting?;
+    private active;
+    constructor(component: Component);
+    setCustomLayouting(layouting: CustomLayouting | undefined): void;
+    private updateMeasureFunction;
+    /**
+     * use requestCalculateLayout instead
+     */
+    calculateLayout(): void;
+    addChild(node: FlexNode): void;
+    removeChild(node: FlexNode): void;
+    commit(parentDirection: FlexDirection): void;
+    updateMeasurements(displayed: boolean, parentWidth: number | undefined, parentHeight: number | undefined): Vector2Tuple;
+    addLayoutChangeListener(listener: () => void): () => undefined;
+}
+export declare function setMeasureFunc(node: Node, func: MeasureFunction | undefined): void;

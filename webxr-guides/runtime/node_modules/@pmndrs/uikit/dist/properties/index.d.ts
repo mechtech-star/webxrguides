@@ -1,0 +1,69 @@
+import { PropertiesImplementation as BasePropertiesImplementation, Properties as BaseProperties } from '@pmndrs/uikit-pub-sub';
+import { Aliases, AddAllAliases } from './alias.js';
+import { Conditionals, WithConditionalsAndImportant } from './conditional.js';
+import { ReadonlySignal, Signal } from '@preact/signals-core';
+import { YogaProperties } from '../flex/index.js';
+import { PanelProperties } from '../panel/instanced-panel.js';
+import { ZIndexProperties } from '../order.js';
+import { TransformProperties } from '../transform.js';
+import { ScrollbarProperties } from '../scroll.js';
+import { PanelGroupProperties, PointerEventsProperties } from '../panel/index.js';
+import { ListenersProperties } from '../listeners.js';
+import { EventHandlersProperties } from '../events.js';
+import { ComponentDefaultsProperties } from './defaults.js';
+import { FontFamilyProperties, GlyphProperties, TextAlignProperties } from '../text/index.js';
+import { CaretProperties } from '../caret.js';
+import { alignmentXMap, alignmentYMap, ColorRepresentation, VisibilityProperties } from '../utils.js';
+import { SelectionProperties } from '../selection.js';
+import { LayerInSectionIdentifier } from './layer.js';
+export type BaseOutProperties = YogaProperties & PanelProperties & ZIndexProperties & TransformProperties & ScrollbarProperties & PanelGroupProperties & VisibilityProperties & PointerEventsProperties & ListenersProperties & EventHandlersProperties & TextAlignProperties & AppearanceProperties & FontFamilyProperties & GlyphProperties & CaretProperties & SelectionProperties & SizeProperties & AnchorProperties & CursorProperties & IdProperties & ComponentDefaultsProperties;
+export type CursorProperties = {
+    cursor?: string;
+};
+export type IdProperties = {
+    id?: string;
+};
+export type UikitPropertyKeys = keyof BaseOutProperties;
+export type AppearanceProperties = {
+    fill?: ColorRepresentation;
+    color?: ColorRepresentation;
+    opacity?: number | `${number}%`;
+};
+export type SizeProperties = {
+    pixelSize?: number;
+    sizeX?: number;
+    sizeY?: number;
+};
+export type AnchorProperties = {
+    anchorX?: keyof typeof alignmentXMap;
+    anchorY?: keyof typeof alignmentYMap;
+};
+export type WithSignal<T> = {
+    [K in keyof T]: T[K] | ReadonlySignal<T[K]>;
+};
+export type WithInheritance<T> = T & {
+    '*'?: T;
+};
+export type WithInitial<T> = {
+    [Key in keyof T]: T[Key] | 'initial';
+};
+export type InProperties<OutProperties extends BaseOutProperties = BaseOutProperties> = WithInheritance<WithConditionalsAndImportant<AddAllAliases<WithSignal<WithInitial<Partial<OutProperties>>>>>> & {};
+export type Properties<OutProperties extends BaseOutProperties = BaseOutProperties> = BaseProperties<AddAllAliases<WithSignal<WithInitial<Partial<OutProperties>>>>, OutProperties> & {
+    get usedConditionals(): {
+        hover: Signal<boolean>;
+        active: Signal<boolean>;
+    };
+    setLayersWithConditionals(layerInSectionIdentifier: LayerInSectionIdentifier, properties: InProperties<OutProperties> | undefined): void;
+};
+export declare class PropertiesImplementation<OutProperties extends BaseOutProperties = BaseOutProperties> extends BasePropertiesImplementation<AddAllAliases<WithSignal<WithInitial<Partial<OutProperties>>>>, OutProperties> implements Properties<OutProperties> {
+    private readonly conditionals;
+    readonly usedConditionals: {
+        hover: Signal<boolean>;
+        active: Signal<boolean>;
+    };
+    constructor(aliases: Aliases, conditionals: Conditionals, defaults?: WithSignal<OutProperties>);
+    setLayersWithConditionals(layerInSectionIdentifier: LayerInSectionIdentifier, properties: InProperties<OutProperties> | undefined): void;
+}
+export { componentDefaults } from './defaults.js';
+export type { WithConditionalsAndImportant } from './conditional.js';
+export type { AddAllAliases, GetAliases, AllAliases } from './alias.js';

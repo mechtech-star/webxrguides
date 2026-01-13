@@ -20,7 +20,6 @@ export default class App {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.xr.enabled = true;
-    this.renderer.xr.setFoveation(1);
     document.body.appendChild(this.renderer.domElement);
   }
 
@@ -51,18 +50,36 @@ export default class App {
 
   async enterXR() {
     if (!navigator.xr) {
-      console.error('WebXR not supported on this device');
+      console.error('WebXR not supported');
       return;
     }
 
     try {
-      const session = await navigator.xr.requestSession('immersive-vr', {
-        requiredFeatures: ['local'],
-      });
-      this.xrSession = session;
+      console.log('Requesting immersive-vr session');
+
+      const sessionInit = {
+        optionalFeatures: []
+      };
+
+      // Try local-floor first (Quest)
+      if (await navigator.xr.isSessionSupported('immersive-vr')) {
+        sessionInit.optionalFeatures.push('local-floor');
+      }
+
+      // Fallbacks for emulator / desktop
+      sessionInit.optionalFeatures.push('local');
+
+      const session = await navigator.xr.requestSession(
+        'immersive-vr',
+        sessionInit
+      );
+
+      console.log('XR session started', session);
+
       this.renderer.xr.setSession(session);
+
     } catch (error) {
-      console.error('Failed to start XR session:', error);
+      console.error('XR session failed', error);
     }
   }
 

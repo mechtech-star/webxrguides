@@ -1,0 +1,27 @@
+import type { FontWeight, GlyphProperties, WhiteSpace } from '../text/index.js';
+import { alignmentXMap, alignmentYMap, type VisibilityProperties } from '../utils.js';
+import type { PanelGroupProperties } from '../panel/instanced-panel-group.js';
+export declare const componentDefaults: {
+    scrollbarWidth: number;
+    visibility: Required<VisibilityProperties>["visibility"];
+    opacity: number | `${number}%`;
+    depthTest: boolean;
+    renderOrder: number;
+    fontSize: Required<GlyphProperties>["fontSize"];
+    letterSpacing: Required<GlyphProperties>["letterSpacing"];
+    lineHeight: Required<GlyphProperties>["lineHeight"];
+    wordBreak: Required<GlyphProperties>["wordBreak"];
+    verticalAlign: keyof typeof alignmentYMap;
+    textAlign: keyof typeof alignmentXMap | "justify";
+    fontWeight: FontWeight;
+    caretWidth: number;
+    receiveShadow: boolean;
+    castShadow: boolean;
+    panelMaterialClass: NonNullable<PanelGroupProperties["panelMaterialClass"]>;
+    pixelSize: number;
+    anchorX: keyof typeof alignmentXMap;
+    anchorY: keyof typeof alignmentYMap;
+    tabSize: number;
+    whiteSpace: WhiteSpace;
+};
+export type ComponentDefaultsProperties = typeof componentDefaults;

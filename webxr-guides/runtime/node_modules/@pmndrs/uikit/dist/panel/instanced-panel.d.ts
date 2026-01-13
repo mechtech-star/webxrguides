@@ -1,0 +1,43 @@
+import { Signal } from '@preact/signals-core';
+import { Matrix4, Vector2Tuple } from 'three';
+import { Bucket } from '../allocation/sorted-buckets.js';
+import { ClippingRect } from '../clipping.js';
+import { Inset } from '../flex/node.js';
+import { InstancedPanelGroup, PanelGroupProperties } from './instanced-panel-group.js';
+import { ColorRepresentation } from '../utils.js';
+import { OrderInfo } from '../order.js';
+import { PanelMaterialConfig } from './panel-material.js';
+import { Properties } from '../properties/index.js';
+import { RootContext } from '../context.js';
+export type PanelProperties = {
+    borderTopLeftRadius?: number | string;
+    borderTopRightRadius?: number | string;
+    borderBottomLeftRadius?: number | string;
+    borderBottomRightRadius?: number | string;
+    opacity?: number | `${number}%`;
+    backgroundColor?: ColorRepresentation;
+    borderColor?: ColorRepresentation;
+    borderBend?: number | `${number}%`;
+};
+export declare function setupInstancedPanel(properties: Properties, root: Signal<RootContext>, orderInfo: Signal<OrderInfo | undefined>, panelGroupDependencies: Signal<Required<PanelGroupProperties>>, panelMatrix: Signal<Matrix4 | undefined>, size: Signal<Vector2Tuple | undefined>, borderInset: Signal<Inset | undefined>, clippingRect: Signal<ClippingRect | undefined> | undefined, isVisible: Signal<boolean>, materialConfig: PanelMaterialConfig, abortSignal: AbortSignal): void;
+export declare function computedPanelMatrix(properties: Properties, matrixSignal: Signal<Matrix4 | undefined>, sizeSignal: Signal<Vector2Tuple | undefined>, offsetSignal?: Signal<Vector2Tuple>): import("@preact/signals-core").ReadonlySignal<Matrix4 | undefined>;
+export declare class InstancedPanel {
+    private readonly group;
+    private readonly minorIndex;
+    private readonly matrix;
+    private readonly size;
+    private readonly borderInset;
+    private readonly clippingRect;
+    readonly materialConfig: PanelMaterialConfig;
+    private indexInBucket?;
+    private bucket?;
+    private insertedIntoGroup;
+    private active;
+    private abortController?;
+    constructor(properties: Properties, group: InstancedPanelGroup, minorIndex: number, matrix: Signal<Matrix4 | undefined>, size: Signal<Vector2Tuple | undefined>, borderInset: Signal<Inset | undefined>, clippingRect: Signal<ClippingRect | undefined> | undefined, isVisible: Signal<boolean>, materialConfig: PanelMaterialConfig, abortSignal: AbortSignal);
+    setIndexInBucket(index: number): void;
+    private getIndexInBuffer;
+    activate(bucket: Bucket<unknown>, index: number): void;
+    private requestShow;
+    private hide;
+}
